@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+<style>
+	*{
+		padding: 0;
+		margin: 0;
+	}
+	#btn{
+		width: 300px;
+		text-align: center;
+		margin:20px auto;
+	}
+	#box{
+		width: 600px;
+		margin:0 auto;
+	}
+	#box > div{
+		width: 100px;
+		height: 100px;
+		margin: auto 50px;
+		background: #000;
+		float: left;
+	}
+</style>
+</head>
+<body>
+	<div id="btn"><button>点击将DIV变成绿色</button></div>
+	<div id="box">
+		<div></div>
+		<div></div>
+		<div></div>
+	</div>
+</body>
+</html>
+<script>
+	var divs = document.getElementById("box").getElementsByTagName("div"),
+		btn = document.getElementsByTagName("button")[0];
+		btn.onclick = function(){
+			for(var i=0;i<divs.length;i++){
+				divs[i].style.background = "green";
+			}
+		}
+</script>

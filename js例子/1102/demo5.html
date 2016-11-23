@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <div id="clock">
+        <span></span>点<span></span>分<span></span>秒
+    </div>
+</body>
+</html>
+<script>
+    var clock = document.getElementById("clock");
+    var span = clock.getElementsByTagName("span");
+    setInterval(getTimes,1000);
+    getTimes();
+    function getTimes(){
+        var date = new Date();
+        var date = [date.getHours(),date.getMinutes(),date.getSeconds()];
+        for(var i in date){
+            span[i].innerHTML = format(date[i]);
+        }
+    }
+    function format(a){
+        return a.toString().replace(/^(\d)$/,"0$1");
+    }
+</script>

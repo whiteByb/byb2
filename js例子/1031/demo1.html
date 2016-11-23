@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		.box{width: 800px;margin: 0 auto;}
+		p{text-align: center;}
+		#dv1{width: 200px;
+		height: 200px;background: #000;
+		color: #fff;margin: 0 auto;padding: 20px;font-size: 12px;line-height: 20px;}
+	</style>
+</head>
+
+<body>
+	<div class="box">
+		<p>
+			<label for="">属性名:</label>
+			<input type="text" value="background">
+		</p>
+		<p>
+			<label for="">属性值:</label>
+			<input type="text" value="blue">
+		</p>
+		<p>
+			<label for=""></label>
+			<button>确定</button>
+			<button>重置</button>
+		</p>
+	</div>
+	<div id="dv1">在上方输入框输入"属性名"及"属性值"，点击确定按钮查看效果。</div>
+</body>
+
+</html>
+<script>
+	var changeStyle = function(ele,name,value){
+		ele.style[name]=value;
+	}
+	var dv1 =document.getElementById("dv1");
+	var btns = document.getElementsByTagName("button");
+	var inputs = document.getElementsByTagName("input");
+	btns[0].onclick = function(){
+		changeStyle(dv1,inputs[0].value,inputs[1].value);
+	}
+	btns[1].onclick = function(){
+		dv1.removeAttribute("style");
+	}
+</script>

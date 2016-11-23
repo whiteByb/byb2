@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        #iphone {
+            position: relative;
+            width: 426px;
+            height: 640px;
+            margin: 10px auto;
+            background: url(./img/1.jpg) no-repeat;
+        }
+        
+        #lock {
+            position: absolute;
+            left: 50%;
+            bottom: 33px;
+            width: 358px;
+            height: 62px;
+            margin-left: -179px;
+        }
+        
+        #lock span {
+            position: absolute;
+            width: 93px;
+            height: 62px;
+            cursor: pointer;
+            background: url(./img/btn.jpg) no-repeat;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="iphone">
+        <div id="lock"><span></span></div>
+    </div>
+</body>
+
+</html>
+<script>
+    var phone = document.getElementById("iphone"),
+        lock = document.getElementById("lock"),
+        btn = lock.getElementsByTagName("span")[0],
+        disX = 0,
+        maxL = lock.clientWidth - btn.offsetWidth,
+        obg = document.createElement("img");
+    obg.src = "./img/2.jpg";
+    btn.onmousedown = function (e) {
+        var e = e || window.event;
+        disX = e.clientX - this.offsetLeft;
+        document.onmousemove = function (e) {
+            var e = e || window.event;
+            var l = e.clientX - disX;
+            l < 0 && (l = 0);
+            l > maxL && (l = maxL);
+            btn.style.left = l + "px";
+            btn.offsetLeft == maxL && (phone.style.background = "url(" + obg.src + ")", lock.style.display = "none");
+            return false;
+        }
+        document.onmouseup = function () {
+            document.onmousemove = null;
+            document.onmouseup = null;
+            btn.releaseCapture && btn.releaseCapture();
+            /*
+                函数功能：该函数从当前线程中的窗口释放鼠标捕获，并恢复通常的鼠标输入处理。捕获鼠标的窗口接收所有的鼠标输入
+                
+                （无论光标的位置在哪里），除非点击鼠标键时，光标热点在另一个线程的窗口中。
+                
+                函数原型：BOOL ReleaseCapture（VOlD）
+                
+                参数：无。
+                
+                返回值：如果函数调用成功，返回非零值；如果函数调用失败，返回值是零。若想获得更多的错误信息，请调用GetlastError函数。
+                
+                备注：应用程序在调用函数SetCaPture之后调用此函数。
+                
+                Windows 95：调用ReleaseCapture会引起失去鼠标捕获的窗口接收一个WM_CAPTURECHANGED消息。
+                
+                速查：Windows NT：3.1及以上版本；Windows：95及以上版本：Windows CE：1.0及以上版本；头文件：winuser.h；输入库：             
+                User32.lib。
+            */
+            btn.offsetLeft > maxL / 2 ? startMove(maxL, function () {
+                    phone.style.background = "url(" + obg.src + ")";
+                    lock.style.display = "none";
+                }) :
+                startMove(0);
+        }
+        this.setCapture && this.setCapture();
+        /*
+        函数功能：该函数在属于当前线程的指定窗口里设置鼠标捕获。
+            一旦窗口捕获了鼠标，所有鼠标输入都针对该窗口，无论光标是否在窗口的边界内。
+            同一时刻只能有一个窗口捕获鼠标。如果鼠标光标在另一个线程创建的窗口上，只有当鼠标键按下时系统才将鼠标输入指向指定的窗口。
+        函数原型：HWND SetCapture（HWND hwnd）；
+        参数：
+            hWnd：当前线程里要捕获鼠标的窗口句柄。
+            
+            返回值：返回值是上次捕获鼠标的窗口句柄。如果不存在那样的句柄，返回值是NULL。
+            
+            备注：只有前台窗口才能捕获鼠标。如果一个后台窗口想捕获鼠标，则该窗口仅为其光标热点在该窗口可见部份的鼠标事件接收消息。
+            
+            另外，即使前台窗口已捕获了鼠标，用户也可点击另一个窗口，将其调入前台。
+            
+            当一个窗口不再需要所有的鼠标输入时，创建该窗口的线程应当调用函数ReleaseCapture来释放鼠标。
+            
+            此函数不能被用来捕获另一进程的鼠标输入。
+           
+            Windows 95：调用SetCapture会引起失去鼠标捕获的窗口接收一个WM_CAPTURECHANGED消息。
+            
+            速查：头文件：Winuser.h：输入库：user32.lib。
+           
+            Javascript鼠标捕获
+            
+            鼠标捕获(setCapture)作用是将鼠标事件捕获到当前文档的指定的对象。这个对象会为当前应用程序或整个系统接收所有鼠标事件。
+            
+            鼠标事件编辑
+            
+            setCapture捕获以下鼠标事件：onmousedown、onmouseup、onclick、ondblclick、onmouseover和onmouseout。
+            
+            程序中主要是要捕获onmousemove和onmouseup事件。
+            
+            msdn的介绍中还说到setCapture有一个bool参数，用来设置在容器内的鼠标事件是否都被容器捕获。
+            
+            容器就是指调用setCapture的对象，大概意思就是：
+            
+            参数为true时（默认）容器会捕获容器内所有对象的鼠标事件，即容器内的对象不会触发鼠标事件（跟容器外的对象一样）；
+            
+            参数为false时容器不会捕获容器内对象的鼠标事件，即容器内的对象可以正常地触发事件和取消冒泡。
+        */
+        return false;
+    };
+
+    function startMove(iTarget, onEnd) {
+        clearInterval(btn.timer);
+        btn.timer = setInterval(function () {
+            doMove(iTarget, onEnd)
+        }, 30)
+    }
+
+    function doMove(iTarget, onEnd) {
+        var iSpeed = (iTarget - btn.offsetLeft) / 5;
+        iSpeed = iSpeed > 0 ? Math.ceil(iSpeed) : Math.floor(iSpeed);
+        iTarget == btn.offsetLeft ? (clearInterval(btn.timer), onEnd && onEnd()) : btn.style.left = iSpeed + btn.offsetLeft + "px"
+    }
+</script>

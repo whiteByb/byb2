@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+<style>
+    *{margin:0;padding:0;}
+    ul,li{list-style: none;}
+    img{border:0;border-radius:3px;}
+    #box{
+        width:212px;
+        border:5px solid #09f;
+        overflow:hidden;
+        border-radius:5px;
+        margin:10px auto;
+        padding:0 0 3px 3px;
+    }
+    #box li,#box li img{
+        float:left;
+        width:50px;
+    }
+    #box li{
+        margin:3px 3px 0 0;
+    }
+    #box li.first{
+        position:relative;
+    }
+    #box li.first,#box li.first img{
+        width:156px;
+    }
+</style>
+</head>
+<body>
+    <ul id="box">
+    <li class="first"><img src="images/big_1.jpg"><div></div></li>
+    <li><a href="#"><img src="images/small_1.jpg"></a></li>
+    <li><a href="#"><img src="images/small_2.jpg"></a></li>
+    <li><a href="#"><img src="images/small_3.jpg"></a></li>
+    <li><a href="#"><img src="images/small_4.jpg"></a></li>
+    <li><a href="#"><img src="images/small_5.jpg"></a></li>
+    <li><a href="#"><img src="images/small_6.jpg"></a></li>
+    <li><a href="#"><img src="images/small_7.jpg"></a></li>
+    <li><a href="#"><img src="images/small_8.jpg"></a></li>
+    <li><a href="#"><img src="images/small_9.jpg"></a></li>
+    <li><a href="#"><img src="images/small_10.jpg"></a></li>
+    <li><a href="#"><img src="images/small_11.jpg"></a></li>
+</ul>
+
+</body>
+</html>
+<script>
+    var imgs = document.getElementById("box").getElementsByTagName("img");
+    var divs = document.getElementsByTagName("div")[0];
+    for(var i=1;i<imgs.length;i++){
+        imgs[i].onmouseover = function(){
+            var img = new Image();
+            img.src = imgs[0].src = this.src.replace(/small/,'big');
+            divs.style.display = "block";
+            img.commlete ? divs.style.display = "none" : (imgs[0].onload = function(){
+                divs.style.display = "none";
+            })
+        }
+    }
+</script>

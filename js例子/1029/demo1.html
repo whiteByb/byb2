@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+<style>
+	*{
+		padding: 0;
+		margin: 10px;
+	}
+	body{
+		text-align: center;
+	}
+	#box-color{
+		width: 200px;
+		height: 200px;
+		background: #000;
+		margin:0 auto;
+	}
+</style>
+</head>
+<body>
+	<div class="box">
+		<input type="button" value="变宽">
+		<input type="button" value="变高">
+		<input type="button" value="变色">
+		<input type="button" value="隐藏">
+		<input type="button" value="重置">
+		<div id="box-color"></div>
+	</div>
+</body>
+</html>
+<script>
+	var changeStyle = function(ele,attr,value){
+		ele.style[attr] = value;
+	}
+	var btn = document.getElementsByTagName("input"),
+		btnColor = document.getElementById("box-color"),
+		attr = ["width","height","background","display","display"],
+		val = ["300px","300px","red","none","block"];
+		for(var i=0;i<btn.length;i++){
+			btn[i].index = i;
+			btn[i].onclick = function(){
+				this.index == btn.length-1 && (btnColor.style.cssText = "");
+				changeStyle(btnColor,attr[this.index],val[this.index]);
+			}
+		}
+</script>

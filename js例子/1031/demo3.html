@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+<style>
+	*{padding:0;margin: 0;}
+	ul,li{list-style: none;}
+	#box{width:450px;margin:10px auto;}
+	#tab{
+		overflow:hidden;
+		background:#000;
+		border:1px solid #000;
+	}
+	#tab li{
+		float:left;
+		color:#fff;
+		height:30px;
+		cursor:pointer;
+		line-height:30px;
+		list-style-type:none;
+		padding:0 20px;
+	}
+	#tab li.on{
+		color:#000;
+		background:#ccc;
+	}
+	#content{
+		border:1px solid #000;
+		border-top-width:0;
+	}
+	#content ul{
+		line-height:25px;
+		display:none;
+		margin:0 30px;
+		padding:10px 0;
+	}
+
+</style>
+</head>
+<body>
+	<div class="box" id="box">
+		<ul id="tab">
+			<li class="on">一</li>
+			<li>二</li>
+			<li>三</li>
+		</ul>
+		<div class="content" id="content">
+			<ul style="display:block;">
+				<li>第一个</li>
+			</ul>
+			<ul>
+				<li>第二个</li>
+			</ul>
+			<ul>
+				<li>第三个</li>
+			</ul>
+		</div>
+	</div>
+</body>
+</html>
+<script>
+	var li = document.getElementById("tab").getElementsByTagName("li");
+	var uls = document.getElementById("content").getElementsByTagName("ul");
+	for(var i=0;i<li.length;i++){
+		li[i].index = i;
+		li[i].onmouseover = function(){
+			for(var j=0;j<li.length;j++) li[j].className = "";
+			this.className = "on";
+			for(var j=0;j<uls.length;j++) uls[j].style.display = "none";
+			uls[this.index].style.display = "block";
+		}
+	}
+</script>

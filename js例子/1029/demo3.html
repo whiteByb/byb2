@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+<style>
+	*{
+		padding:0;
+		margin:30px;
+	}
+	input{
+		display: block;
+		margin:20px auto;
+	}
+	body{
+		text-align: center;
+	}
+</style>
+</head>
+<body>
+	<div class="box">
+		<input type="text" value="北京市">
+		<input type="text" value="朝阳区">
+		<p><button>传参</button></p>
+	</div>
+</body>
+</html>
+<script>
+	var fn = function(inp1,inp2){
+		alert(inp1.value);
+		alert(inp2.value);
+	}
+	var inp = document.getElementsByTagName("input"),
+		btn = document.getElementsByTagName("button")[0];
+		btn.onclick = function(){
+			fn(inp[0],inp[1]);
+		}
+</script>
